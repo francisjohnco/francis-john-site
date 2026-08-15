@@ -873,7 +873,7 @@ table.list td .mv-group{display:flex}
   --brass:#B8873B;--brass-soft:#EADCC0;--sea:#2E7286;--sea-soft:#D5E3E8;--clay:#A85A52;--moss:#4A6B5B;
   --hpline:rgba(14,36,54,.13);--hpline-2:rgba(14,36,54,.24);
   /* engine accent roles, mapped to brand colors */
-  --vis:#2E7286;--auth:#B8873B;--rep:#A85A52;--ret:#4A6B5B;--molten:#B8873B;--molten-hot:#C99A4A;
+  --vis:#2E7286;--auth:#B8873B;--rep:#A85A52;--ret:#4A6B5B;--molten:#4FA8C0;--molten-hot:#6Fc0d6;--glow:#4FA8C0;
   /* dark tokens — used ONLY inside the engine band for the one dramatic beat */
   --void:#0E2436;--void-2:#12293C;--panel:#183246;--panel-2:#1E3B52;--steel:#8AA0B4;--fog:#C6D2DC;--hpwhite:#F7FAFC;
   --hpdisplay:'Jost',sans-serif;--hpbody:'Newsreader',Georgia,serif;--hpmono:'IBM Plex Mono',monospace;
@@ -1018,19 +1018,19 @@ table.list td .mv-group{display:flex}
 .rev-home .hero{background:var(--paper)}
 .rev-home .hero-grid{background-image:linear-gradient(rgba(14,36,54,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,36,54,.06) 1px,transparent 1px)}
 .rev-home .hero h1{color:var(--ink);font-weight:500}
-.rev-home .hero .hot{color:var(--brass)}
+.rev-home .hero .hot{color:var(--navy)}
 .rev-home .hero-sub{color:var(--slate)}
-.rev-home .eyebrow{color:var(--brass)}
-.rev-home .eyebrow::before,.rev-home .sec-eyebrow::before{background:var(--brass)}
-.rev-home .sec-eyebrow{color:var(--brass)}
-.rev-home .readout .val{color:var(--brass)}
+.rev-home .eyebrow{color:var(--navy)}
+.rev-home .eyebrow::before,.rev-home .sec-eyebrow::before{background:var(--navy)}
+.rev-home .sec-eyebrow{color:var(--navy)}
+.rev-home .readout .val{color:var(--navy)}
 .rev-home .readout .lbl{color:var(--slate)}
 .rev-home .readout .rpm{color:var(--moss)}
 /* buttons — light */
-.rev-home .btn-molten{background:var(--brass);color:var(--white)}
-.rev-home .btn-molten:hover{background:#a8792f}
+.rev-home .btn-molten{background:var(--navy);color:var(--white)}
+.rev-home .btn-molten:hover{background:#24506F}
 .rev-home .btn-ghost{border-color:var(--line-strong,rgba(14,36,54,.28));color:var(--ink)}
-.rev-home .btn-ghost:hover{border-color:var(--brass);color:var(--brass)}
+.rev-home .btn-ghost:hover{border-color:var(--navy);color:var(--navy)}
 /* section headings + statements — ink */
 .rev-home .big-statement{color:var(--ink)}
 .rev-home .big-statement .dim{color:var(--slate)}
@@ -1059,22 +1059,22 @@ table.list td .mv-group{display:flex}
 .rev-home .jcard p{color:var(--slate)}
 /* closer — light */
 .rev-home .closer h2{color:var(--ink)}
-.rev-home .closer .hot{color:var(--brass)}
+.rev-home .closer .hot{color:var(--navy)}
 .rev-home .closer p{color:var(--slate)}
 /* IGNITION — the dramatic done-for-you sequence (second dark beat) */
 .rev-home .ignition{background:var(--void);position:relative;overflow:hidden}
-.rev-home .ignition::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:120%;height:80%;background:radial-gradient(ellipse at center,rgba(184,135,59,.14),transparent 65%);pointer-events:none}
+.rev-home .ignition::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:120%;height:80%;background:radial-gradient(ellipse at center,rgba(79,168,192,.16),transparent 65%);pointer-events:none}
 .rev-home .ign-in{max-width:1000px;margin:0 auto;padding:110px 32px;position:relative;z-index:2}
 .rev-home .ign-head{text-align:center;max-width:640px;margin:0 auto 60px}
-.rev-home .ign-head .sec-eyebrow{justify-content:center;color:var(--brass)}
+.rev-home .ign-head .sec-eyebrow{justify-content:center;color:var(--glow)}
 .rev-home .ign-head h2{font-size:clamp(32px,6vw,68px);font-weight:600;color:var(--hpwhite);letter-spacing:-.01em}
-.rev-home .ign-head .ign-hot{color:var(--brass)}
+.rev-home .ign-head .ign-hot{color:var(--glow)}
 .rev-home .ign-head p{color:var(--fog);font-size:16px;margin-top:20px;line-height:1.6}
 .rev-home .ign-seq{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 @media(max-width:820px){.rev-home .ign-seq{grid-template-columns:1fr;gap:0}}
 .rev-home .ign-spine{position:absolute;top:26px;left:6%;right:6%;height:2px;background:rgba(255,255,255,.12);z-index:1}
 @media(max-width:820px){.rev-home .ign-spine{left:26px;top:6%;bottom:6%;right:auto;width:2px;height:auto}}
-.rev-home .ign-spark{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--brass);box-shadow:0 0 18px var(--brass),0 0 40px rgba(184,135,59,.6);opacity:0}
+.rev-home .ign-spark{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--glow);box-shadow:0 0 18px var(--glow),0 0 40px rgba(79,168,192,.6);opacity:0}
 .rev-home .ign-seq.run .ign-spark{opacity:1;animation:ignTravel 2.6s cubic-bezier(.5,0,.5,1) forwards}
 @keyframes ignTravel{from{left:0}to{left:100%}}
 .rev-home .ign-step{position:relative;z-index:2;text-align:center;padding:0 8px;opacity:.4;transition:opacity .5s}
@@ -1166,7 +1166,7 @@ table.list td .mv-group{display:flex}
     "gaId": "",
     "passcode": "sajmedia",
     "footerNote": "Built and maintained in Sioux Falls, South Dakota.",
-    "contentVersion": 22
+    "contentVersion": 25
   },
   "profile": {
     "name": "Francis John",
@@ -1378,6 +1378,53 @@ table.list td .mv-group{display:flex}
     }
   ],
   "posts": [
+    {
+      "slug": "win-contractor-jobs-outside-your-city-google-business-profile",
+      "title": "How contractors win jobs two towns over (without a second office)",
+      "date": "2026-03-09",
+      "status": "published",
+      "author": "Francis John",
+      "baked": true,
+      "excerpt": "Your best jobs are often 30–40 minutes away — but Google shows you to the people right next door. Here's how to make your Google Business Profile pull work from the whole region you actually serve.",
+      "tags": [
+        "Local SEO",
+        "Google Business Profile"
+      ],
+      "projectSlug": "",
+      "body": "Most contractors quietly accept a smaller map than the one they actually work. You'll drive 40 minutes for the right job — a full remodel, a re-roof, a big HVAC install — but the phone mostly rings from the few blocks around your shop. That's not because the far-away work isn't there. It's because Google is showing you to the wrong half of your region.\n\nHere's the mechanism, and how to fix it.\n\n## Why the good jobs don't call\n\nGoogle decides who to show in the map for a search like \"kitchen remodel near me\" based heavily on **proximity** — how close the business is to the person searching. If your Google Business Profile is pinned to your shop on the edge of town, someone searching two towns over sees the contractors near *them*, not you. You never appear, so you never get the call, so you assume the demand isn't there. It is. You're just invisible for it.\n\nThe larger, higher-margin jobs are disproportionately the ones worth traveling for. So the exact work you most want is the work proximity is hiding you from.\n\n## The service-area setup most contractors get wrong\n\nA Google Business Profile can be set up two ways: as a **storefront** with a visible address, or as a **service-area business** that hides the address and instead lists the areas you serve. Contractors who go to the customer — not the other way around — should almost always be the second kind.\n\nBut listing service areas is where it goes wrong. Two common mistakes:\n\n**Listing your whole county as one area.** It feels efficient. It's weak. A giant, vague area tells Google little about where you actually work and dilutes your relevance everywhere. You end up mediocre across a wide zone instead of strong in the towns that matter.\n\n**Listing only your home town.** The opposite problem — you've told Google you're a local-only operation, and it obliges by keeping you local.\n\nThe stronger approach: list the **specific towns and neighborhoods** you genuinely serve and want more of, named individually. Each named place is a signal. A profile that names the eight towns you actually work reads very differently to Google than one that says \"Countyname\" or just your home city.\n\n## Make the whole profile speak to the wider region\n\nService areas are one signal. The rest of the profile has to back it up, or Google won't believe you work where you say:\n\n- **Your services and descriptions** should mention the kind of work and, naturally, the region — not keyword-stuffed, but written like someone who works across the area.\n- **Your reviews** are the strongest proof. A review that says \"drove out to Farmington and re-roofed our place\" tells Google — and every future customer — that you really do work in Farmington. Ask happy customers in the outer towns to mention where they are when they leave a review. It's the single most powerful distance signal you have, and it's free.\n- **Your photos** of completed jobs, ideally recognizable as being in different towns, reinforce the same thing.\n\n## The honest part\n\nTwo things worth saying plainly. First, proximity never fully goes away — you will always rank more easily near your base than an hour out. The goal isn't to dominate the whole region equally; it's to *appear at all* in the outer towns where you're currently invisible, so the big jobs can find you. Even moving from \"never shows\" to \"shows on page one\" in a town 30 minutes out can add jobs a year that dwarf the effort.\n\nSecond, this rewards consistency. The profile that names its real service areas, collects reviews from those areas, and keeps posting real work will keep widening its map. The one set up once and forgotten stays pinned to the shop.\n\nIf you're driving past good jobs to get to smaller ones closer to home, your map is smaller than your business. That's fixable — and it's usually the highest-return thing a contractor can do with an afternoon."
+    },
+    {
+      "slug": "holistic-dentistry-patients-who-drive-hours-google-business-profile",
+      "title": "Your best patients will drive two hours. Can they find you?",
+      "date": "2026-03-18",
+      "status": "published",
+      "author": "Francis John",
+      "baked": true,
+      "excerpt": "Holistic and biological dentistry patients travel far on purpose — they've already decided what they want. The practices that win them are simply the ones that show up when those patients search. Here's how to be one.",
+      "tags": [
+        "Local SEO",
+        "Google Business Profile"
+      ],
+      "projectSlug": "",
+      "externalUrl": "https://holisticdentalcare.netlify.app/holistic-dental-marketing/",
+      "externalLabel": "Holistic dental marketing",
+      "body": "There's a fact about biological and holistic dentistry that changes the entire marketing problem: your patients will travel. They research for weeks. They join the forums and the Facebook groups. They decide they want mercury-free, biocompatible, whole-body care *before* they ever open a map. And then they will happily drive an hour, two hours, sometimes across a state line, to get it.\n\nThat's a gift most local businesses never get. A general dentist competes on \"close and convenient.\" You compete on \"worth the drive.\" But it only works if the patient can find you when they finally search — and that's exactly where most holistic practices lose them.\n\n## The patient is searching for the specialty, not the neighborhood\n\nA regular dental patient searches \"dentist near me.\" A holistic patient searches for what they actually want: \"biological dentist,\" \"mercury-free dentist,\" \"SMART amalgam removal,\" \"ozone dentistry.\" They're searching by *discipline*, and often willing to widen the map to find it.\n\nHere's the problem: if your Google Business Profile is optimized like a general dentist's — pinned tight to your address, categorized generically — you're invisible for the specialty searches that your ideal patients actually type. You're competing on proximity in a game your patients aren't even playing.\n\n## Get the profile to match how they search\n\n**Categories first.** Google Business Profile lets you set a primary category and additional ones. Most holistic practices leave it at \"Dentist\" and stop. If categories like \"Cosmetic dentist\" or \"Holistic\" fits are available and accurate, use every relevant one — they tell Google what kind of practice you are, which is what the specialty searcher is filtering for.\n\n**Say the specialty everywhere, plainly.** Your profile description, your services list, your website — all should name the actual disciplines: biological, biocompatible, mercury-free, whole-body. Patients search these exact words. If your profile speaks in general-dentistry language, you won't match the search that would have driven someone two hours to your door.\n\n**Service areas and the wider map.** Because your patients travel, name the broader region — the towns and cities within driving range that you draw from, not just your immediate suburb. You want to appear when someone an hour away searches the specialty, because for this patient, an hour is nothing.\n\n## Reviews do the heavy lifting\n\nFor a patient about to drive two hours and spend real money on out-of-network care, reviews aren't a nice-to-have — they're the whole decision. And they do double duty: they persuade the patient *and* they signal to Google.\n\nEncourage patients to mention two things in reviews: **what they came for** (the specific holistic service) and **where they traveled from**. \"Drove up from two hours away for SMART amalgam removal, worth every minute\" is worth more than any ad you could buy. It tells the next distance patient they're not crazy to travel, and it tells Google you genuinely serve that wider area.\n\n## Why this matters more for you than for anyone\n\nMost local businesses fight over a small radius because their customers won't travel. Yours will. That means the ceiling on your practice isn't your neighborhood — it's the whole region of people who want what you specifically do. The only thing standing between you and those patients is whether you show up when they finally search for the specialty they've already decided on.\n\nThat's a solvable problem, and it's a better problem to have than almost any other practice in town. The demand is real, motivated, and already looking. Make sure the practice they find is yours.\n\nIf you want to see exactly how I build this for holistic practices, the details are here."
+    },
+    {
+      "slug": "upper-cervical-chiropractic-distance-patients-google-business-profile",
+      "title": "Upper cervical patients travel for care. Here's how they find you.",
+      "date": "2026-03-27",
+      "status": "published",
+      "author": "Francis John",
+      "baked": true,
+      "excerpt": "Upper cervical is a discipline patients seek out by name, often after years of searching — and they'll drive for it. The practices that win them show up for the specialty across a wide radius. Here's how to be found.",
+      "tags": [
+        "Local SEO",
+        "Google Business Profile"
+      ],
+      "projectSlug": "",
+      "body": "Upper cervical chiropractic has an unusual patient: someone who has often tried everything else first. They've been through the general chiropractors, the specialists, sometimes years of it, and then they discover upper cervical specifically — NUCCA, Blair, Atlas Orthogonal — and they go looking for it on purpose. When they find a practitioner, distance is rarely the objection. They'll drive.\n\nThat makes the marketing problem simple to state and easy to get wrong: your future patients are actively searching for the exact thing you do, from a wide area, and the only question is whether you appear when they search. Most practices don't, and it has nothing to do with the quality of their care.\n\n## They search by name — so your profile must speak by name\n\nThe upper cervical patient doesn't search \"chiropractor near me.\" By the time they find you, they know the vocabulary. They search \"NUCCA chiropractor,\" \"upper cervical near me,\" \"Atlas Orthogonal,\" \"Blair technique.\" They're filtering by discipline, and they'll widen the radius to find it.\n\nIf your Google Business Profile reads like a general chiropractic clinic — generic category, no mention of the technique, pinned tight to your address — you are invisible for the exact searches that would bring you your ideal patient. You're competing on \"closest chiropractor\" when your patient is searching for \"the specific practitioner worth traveling to.\"\n\n## Setting the profile up to be found\n\n**Name the technique, everywhere.** Your profile description, services, and website should state plainly which upper cervical methods you practice. These are the words patients type. Vague \"chiropractic care\" language will never match \"NUCCA near me,\" and that's the search that matters.\n\n**Use every accurate category.** Set your categories as specifically as Google allows. The more precisely your profile describes what you actually do, the better you match the specialty searcher who's filtering for it.\n\n**Claim the wider map.** Because these patients travel, name the towns and cities across your real draw area, not just your home town. You want to surface when someone an hour or two away searches the technique — for this patient, that distance is well within range, and they're often the most committed patient you'll ever treat.\n\n## Reviews are proof that travel is normal\n\nA patient considering a two-hour drive to a practitioner they found online needs reassurance that other people did the same and were glad. Reviews provide it — and they signal your service area to Google at the same time.\n\nAsk patients to mention, naturally, **what brought them** and **how far they came**. \"Drove from three hours away after years of headaches — first real relief I've had\" is the most persuasive marketing you could possibly have, and you can't buy it. It tells the next searching patient that traveling for this is not only reasonable, it's what people do. And it tells Google you serve a genuinely wide region.\n\n## The opportunity hiding in a narrow discipline\n\nHere's what makes upper cervical unusually winnable: the competition for these specialty searches is thin. Far fewer practices optimize for \"NUCCA\" or \"Blair technique\" than for \"chiropractor,\" because far fewer *are* that. High intent, motivated patients, willing to travel, and a short list of competitors for the exact search — that's close to an ideal local marketing situation.\n\nThe demand is real and it's actively looking. The patients are the most committed you'll treat. The only gap is visibility — being the practice that appears when someone finally searches for the specific care they've decided they need. Close that gap, and the wider region opens up."
+    },
     {
       "slug": "two-ways-to-work-with-me",
       "title": "Two ways to work with me",
@@ -2131,6 +2178,9 @@ const Store = {
             ['cover','excerpt','externalUrl','externalLabel','projectSlug','cta','publishAt'].forEach(k=>{
               if(isBlank(mp[k]) && !isBlank(fp[k])) mp[k]=fp[k];
             });
+            if(fp.status==='published' && mp.status!=='published'){
+              mp.status='published'; if(isBlank(mp.date)&&!isBlank(fp.date))mp.date=fp.date; mp.baked=true; delete mp.publishAt;
+            }
             return mp;
           });
           base.posts = filled.concat(newPosts); // back-filled live states, add new
@@ -4408,15 +4458,24 @@ function reconcile(seed, remote){
   const seedBySlug = {};
   seedPosts.forEach(p => { seedBySlug[p.slug] = p; });
   const isBlank = v => v == null || v === '' || (Array.isArray(v) && v.length === 0);
+  const seedNewer = ((seed.meta&&seed.meta.contentVersion)||0) > ((remote.meta&&remote.meta.contentVersion)||0);
   const mergedLive = livePosts.map(lp => {
     const fp = seedBySlug[lp.slug];
     if (!fp) return lp;
     const merged = Object.assign({}, lp);
-    // only these additive fields get back-filled when the live post lacks them;
-    // status, title, body, date and the like are never touched here
+    // back-fill blank additive fields from the file
     ['cover','excerpt','externalUrl','externalLabel','projectSlug','cta','publishAt'].forEach(k => {
       if (isBlank(merged[k]) && !isBlank(fp[k])) merged[k] = fp[k];
     });
+    // publishing is a deliberate act in the file: if a newer deploy marks a post
+    // published, honor it — a server draft should not keep it hidden. (We never
+    // go the other way: the file can't un-publish something you published live.)
+    if (seedNewer && fp.status === 'published' && merged.status !== 'published'){
+      merged.status = 'published';
+      if (isBlank(merged.date) && !isBlank(fp.date)) merged.date = fp.date;
+      merged.baked = true;
+      delete merged.publishAt;
+    }
     return merged;
   });
   const brandNew = seedPosts.filter(p => !liveSlugs.has(p.slug));
