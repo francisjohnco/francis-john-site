@@ -1225,6 +1225,39 @@ table.list td .mv-group{display:flex}
 .mp-cta p{font-family:var(--body);font-size:16px;color:var(--slate);max-width:52ch;margin:14px auto 26px;line-height:1.55}
 .mp .btn-molten{background:var(--navy);color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:15px 26px;border-radius:2px;display:inline-block;transition:background .2s}
 .mp .btn-molten:hover{background:var(--sea)}
+/* ===== Search Console dashboard ===== */
+.gsc{font-family:var(--body)}
+.gsc-loading{padding:40px;text-align:center;color:var(--slate);font-family:var(--mono);font-size:13px}
+.gsc-connect{max-width:520px;padding:32px;border:1px solid var(--line);border-radius:var(--r);background:var(--white)}
+.gsc-connect h3{font-family:var(--display);font-weight:500;font-size:22px;color:var(--ink);margin:0 0 10px}
+.gsc-connect p{color:var(--slate);font-size:15px;line-height:1.55;margin:0 0 14px}
+.gsc-btn{display:inline-block;background:var(--navy);color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:13px 22px;border-radius:2px;text-decoration:none}
+.gsc-btn:hover{background:var(--sea)}
+.gsc-fine{font-size:12.5px;color:var(--slate);margin-top:14px}
+.gsc-note{color:var(--clay);font-size:13px}
+.gsc-steps{margin:10px 0;padding-left:18px;color:var(--slate);font-size:14px}
+.gsc-steps code,.gsc-connect code{font-family:var(--mono);font-size:12px;background:var(--porcelain);padding:2px 6px;border-radius:3px;color:var(--ink)}
+.gsc-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.gsc-ok{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--moss);text-transform:uppercase}
+.gsc-range{font-family:var(--mono);font-size:11px;color:var(--slate)}
+.gsc-dis{margin-left:auto;background:none;border:1px solid var(--line);color:var(--slate);font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:3px;cursor:pointer}
+.gsc-dis:hover{border-color:var(--clay);color:var(--clay)}
+.gsc-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:700px){.gsc-metrics{grid-template-columns:1fr 1fr}}
+.gsc-metric{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.gm-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+.gm-value{font-family:var(--display);font-weight:600;font-size:30px;color:var(--ink);line-height:1.1;margin:6px 0 4px}
+.gm-change{font-family:var(--mono);font-size:12px}
+.gm-change.up{color:var(--moss)}.gm-change.down{color:var(--clay)}
+.gsc-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.gsc-h{font-family:var(--display);font-weight:500;font-size:16px;color:var(--ink);margin-bottom:14px}
+.gsc-chart{width:100%;height:90px;display:block}
+.gsc-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.gsc-table th{text-align:right;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);padding:6px 8px;border-bottom:1px solid var(--line)}
+.gsc-table th:first-child{text-align:left}
+.gsc-table td{text-align:right;padding:8px;border-bottom:1px solid var(--porcelain);color:var(--ink)}
+.gsc-table td.q{text-align:left;color:var(--navy);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gsc-table td.empty{text-align:center;color:var(--slate);font-style:italic;padding:20px}
 </style>
 </head>
 <body>
@@ -1289,7 +1322,7 @@ table.list td .mv-group{display:flex}
     "gaId": "",
     "passcode": "sajmedia",
     "footerNote": "Built and maintained in Sioux Falls, South Dakota.",
-    "contentVersion": 36
+    "contentVersion": 37
   },
   "profile": {
     "name": "Francis John",
@@ -3060,6 +3093,110 @@ function initHomepage(){
   }
 }
 
+/* ---------- Google Search Console dashboard ---------- */
+var GSC = (function(){
+  function key(){ try { return sessionStorage.getItem('editKey') || (Store.data.meta && Store.data.meta.passcode) || ''; } catch(e){ return ''; } }
+  function api(path){
+    return fetch('/api/gsc/'+path, { headers: { 'x-edit-key': key() } }).then(function(r){ return r.json(); });
+  }
+  function n(x){ return (x||0).toLocaleString(); }
+  function pct(x){ var v=Math.round((x||0)*10)/10; return (v>0?'+':'')+v+'%'; }
+  function chgClass(x){ return (x>0?'up':(x<0?'down':'')); }
+
+  function metric(label, value, change, invert){
+    var cls = invert ? chgClass(-change) : chgClass(change);
+    var arrow = change>0?'\u2191':(change<0?'\u2193':'\u2013');
+    return '<div class="gsc-metric"><div class="gm-label">'+label+'</div>'
+      + '<div class="gm-value">'+value+'</div>'
+      + '<div class="gm-change '+cls+'">'+arrow+' '+pct(Math.abs(change))+'</div></div>';
+  }
+
+  function sparkline(series){
+    if(!series || !series.length) return '';
+    var w=560, h=90, max=Math.max.apply(null, series.map(function(p){return p.clicks;}).concat([1]));
+    var step = series.length>1 ? w/(series.length-1) : w;
+    var pts = series.map(function(p,i){ return (i*step).toFixed(1)+','+(h-(p.clicks/max)*h).toFixed(1); }).join(' ');
+    var area = 'M0,'+h+' L'+pts.replace(/ /g,' L')+' L'+w+','+h+' Z';
+    return '<svg class="gsc-chart" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">'
+      + '<path d="'+area+'" fill="rgba(46,114,134,.12)"/>'
+      + '<polyline points="'+pts+'" fill="none" stroke="#2E7286" stroke-width="2"/></svg>';
+  }
+
+  function render(d){
+    var t=d.totals, ch=t.change||{};
+    var host = document.getElementById('gscPanel');
+    if(!host) return;
+    var kw = (d.queries||[]).slice(0,15).map(function(q){
+      return '<tr><td class="q">'+esc(q.query)+'</td><td>'+n(q.clicks)+'</td><td>'+n(q.impressions)+'</td>'
+        + '<td>'+(Math.round((q.ctr||0)*1000)/10)+'%</td><td>'+(Math.round((q.position||0)*10)/10)+'</td></tr>';
+    }).join('') || '<tr><td colspan="5" class="empty">No keyword data yet \u2014 new sites take a few weeks to accumulate.</td></tr>';
+    var pg = (d.pages||[]).slice(0,10).map(function(p){
+      var path=(p.page||'').replace(/^https?:\/\/[^/]+/,'')||'/';
+      return '<tr><td class="q">'+esc(path)+'</td><td>'+n(p.clicks)+'</td><td>'+n(p.impressions)+'</td><td>'+(Math.round((p.position||0)*10)/10)+'</td></tr>';
+    }).join('') || '<tr><td colspan="4" class="empty">No page data yet.</td></tr>';
+
+    host.innerHTML =
+      '<div class="gsc-bar"><span class="gsc-ok">\u25CF Connected</span>'
+      + '<span class="gsc-range">Last '+d.range+' days \u00b7 '+d.start+' to '+d.end+'</span>'
+      + '<button class="gsc-dis" data-gsc="disconnect">Disconnect</button></div>'
+      + '<div class="gsc-metrics">'
+        + metric('Clicks', n(t.clicks), ch.clicks)
+        + metric('Impressions', n(t.impressions), ch.impressions)
+        + metric('Avg CTR', (Math.round((t.ctr||0)*1000)/10)+'%', ch.ctr)
+        + metric('Avg position', (Math.round((t.position||0)*10)/10), ch.position, true)
+      + '</div>'
+      + '<div class="gsc-card"><div class="gsc-h">Clicks over time</div>'+sparkline(d.series)+'</div>'
+      + '<div class="gsc-card"><div class="gsc-h">Top keywords</div>'
+        + '<table class="gsc-table"><thead><tr><th>Query</th><th>Clicks</th><th>Impr.</th><th>CTR</th><th>Pos.</th></tr></thead><tbody>'+kw+'</tbody></table></div>'
+      + '<div class="gsc-card"><div class="gsc-h">Top pages</div>'
+        + '<table class="gsc-table"><thead><tr><th>Page</th><th>Clicks</th><th>Impr.</th><th>Pos.</th></tr></thead><tbody>'+pg+'</tbody></table></div>';
+  }
+
+  function showConnect(msg){
+    var host=document.getElementById('gscPanel'); if(!host) return;
+    host.innerHTML = '<div class="gsc-connect">'
+      + '<h3>Connect Google Search Console</h3>'
+      + '<p>See your live clicks, impressions, keywords and rankings right here. One-time connect with your Google account.</p>'
+      + (msg?'<p class="gsc-note">'+esc(msg)+'</p>':'')
+      + '<a class="gsc-btn" href="/api/gsc/connect?key='+encodeURIComponent(key())+'">Connect to Search Console</a>'
+      + '<p class="gsc-fine">New site? Data appears after Google accumulates a few days of search activity.</p>'
+      + '</div>';
+  }
+  function showSetup(){
+    var host=document.getElementById('gscPanel'); if(!host) return;
+    host.innerHTML = '<div class="gsc-connect">'
+      + '<h3>Search Console isn\u2019t configured yet</h3>'
+      + '<p>To turn this on, add a Google OAuth client and set these Netlify environment variables:</p>'
+      + '<ul class="gsc-steps">'
+      + '<li><code>GSC_CLIENT_ID</code></li><li><code>GSC_CLIENT_SECRET</code></li>'
+      + '<li><code>GSC_PROPERTY</code> \u2014 e.g. <code>https://francisjohn.co/</code></li></ul>'
+      + '<p class="gsc-fine">Authorised redirect URI in Google: <code>https://francisjohn.co/api/gsc/callback</code>. Full steps are in the function file.</p>'
+      + '</div>';
+  }
+
+  function init(){
+    var host=document.getElementById('gscPanel'); if(!host) return;
+    host.innerHTML='<div class="gsc-loading">Checking connection\u2026</div>';
+    api('status').then(function(s){
+      if(!s || s.configured===false) return showSetup();
+      if(!s.connected) return showConnect();
+      host.innerHTML='<div class="gsc-loading">Loading your Search Console data\u2026</div>';
+      return api('data?range=28').then(function(d){
+        if(d && d.error==='not_connected') return showConnect();
+        if(d && d.error) return showConnect('Could not load data: '+(d.detail||d.error));
+        render(d);
+      });
+    }).catch(function(){ showConnect('Connection check failed. Try again.'); });
+  }
+
+  document.addEventListener('click', function(e){
+    var b=e.target.closest && e.target.closest('[data-gsc="disconnect"]');
+    if(b){ e.preventDefault(); api('disconnect').then(function(){ init(); }); }
+  });
+
+  return { init: init };
+})();
+
 render();
 }
 window.addEventListener('popstate', render);
@@ -3924,6 +4061,7 @@ const Admin = {
       + this.panel('copy', this.pageCopy())
       + this.panel('sidebar', this.sidebarSettings())
       + this.panel('seo', this.seoSettings())
+      + this.panel('searchconsole', this.searchConsole())
       + this.panel('publish', this.publish())
       + '</div></div></div>';
   },
@@ -3963,7 +4101,9 @@ const Admin = {
       ['copy','Page copy'],
       ['sidebar','Sidebar & CTAs'],
       ['grp','Publishing'],
-      ['seo','SEO defaults'],['publish','Publish']
+      ['seo','SEO defaults'],['publish','Publish'],
+      ['grp','Insights'],
+      ['searchconsole','Search Console']
     ];
     return '<nav class="admin-nav">' + items.map(([k,label]) =>
       k === 'grp' ? '<div class="grp">'+esc(label)+'</div>'
@@ -4437,6 +4577,14 @@ const Admin = {
       + '</div>';
   },
 
+
+  searchConsole(){
+    return this.head('Search Console','Your live Google Search Console data \u2014 clicks, impressions, keywords and rankings for francisjohn.co.')
+      + '<div id="gscPanel" class="gsc">'
+      +   '<div class="gsc-loading">Loading\u2026</div>'
+      + '</div>';
+  },
+
   /* ---------- publish ---------- */
   publish(){
     const kb = (Store.bytes()/1024).toFixed(0);
@@ -4629,7 +4777,9 @@ document.addEventListener('click', e => {
     case 'signout':
       Remote.setKey(null); A.unlocked = false; toast('Signed out');
       break;
-    case 'tab': A.tab = arg; A.editing = null; break;
+    case 'tab': A.tab = arg; A.editing = null;
+      if (arg === 'searchconsole') setTimeout(function(){ try { GSC.init(); } catch(e){} }, 60);
+      break;
     case 'back': A.editing = null; break;
     case 'save': Store.save(); toast('Changes saved'); rerender = false; break;
 
